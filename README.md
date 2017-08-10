@@ -48,7 +48,11 @@ The kinematic model can predict the state on the next time step by taking into a
 
  Final duration of the trajectory is set to 1 second after several experiments. N (timestep length) is set to 10 and dt (elapsed duration between timesteps) is set to 0.1.
 
- Some of the previous values I tried for N and dt are (20,0.05), (25,0.05) etc.
+ Some of the previous values I tried for N and dt are (20,0.05), (25,0.05) etc. If we use a larger N, number of variables in optimizer will also increase and will be major driver of computational cost.
+
+ Larger values of dt will result in less frequent actuations, which makes it harder to accurately approximate a continuous reference trajectory. This is sometimes called "discretization error".
+
+ Also in case of driving a car, prediction horizon should be a few seconds, at most. Beyond that horizon, the environment will change enough that it won't make sense to predict any further into the future.
 
 
 ## Dependencies
