@@ -131,17 +131,16 @@ int main()
 
           auto coeffs = polyfit(ptsx_transform, ptsy_transform, 3);
 
+          // Calculate cross track error & epsi
+          double epsi = -atan(coeffs[1]) + psi;
+          double cte = polyeval(coeffs,0)+v*sin(epsi)*latency;
+
           // Consider latency in vehicle state
           px = v*latency;
           py = 0;
           psi = -v*delta*latency/Lf;
           v += a*latency;
-
-          // Calculate cross track error & epsi
-          double epsi = -atan(coeffs[1]) + psi;
-          double cte = polyeval(coeffs,0)+v*sin(epsi)*latency;
-          
-
+            
           Eigen::VectorXd state(6);
           state << px, py, psi, v, cte, epsi;
 
